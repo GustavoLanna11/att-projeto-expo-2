@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
+import { useColorScheme } from '@/components/useColorScheme';
+import Colors from '@/constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface PerfilData {
@@ -14,6 +16,8 @@ interface PerfilData {
 
 export default function PerfilScreen() {
   const router = useRouter();
+  const colorScheme = useColorScheme() ?? 'dark';
+  const colors = Colors[colorScheme];
   const [perfilData, setPerfilData] = useState<PerfilData>({
     nome: '',
     sobrenome: '',
@@ -53,38 +57,38 @@ export default function PerfilScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.content}>
-        <Text style={styles.title}>Meu Perfil</Text>
+        <Text style={[styles.title, { color: colors.text }]}>Meu Perfil</Text>
         
-        <View style={styles.card}>
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>Nome</Text>
-            <Text style={styles.value}>{perfilData.nome || 'Não informado'}</Text>
+        <View style={[styles.card, { backgroundColor: colors.cardBackground }]}>
+          <View style={[styles.fieldContainer, { borderBottomColor: colors.border }]}>
+            <Text style={[styles.label, { color: colors.label }]}>Nome</Text>
+            <Text style={[styles.value, { color: colors.text }]}>{perfilData.nome || 'Não informado'}</Text>
           </View>
 
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>Sobrenome</Text>
-            <Text style={styles.value}>{perfilData.sobrenome || 'Não informado'}</Text>
+          <View style={[styles.fieldContainer, { borderBottomColor: colors.border }]}>
+            <Text style={[styles.label, { color: colors.label }]}>Sobrenome</Text>
+            <Text style={[styles.value, { color: colors.text }]}>{perfilData.sobrenome || 'Não informado'}</Text>
           </View>
 
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>Idade</Text>
-            <Text style={styles.value}>{perfilData.idade || 'Não informado'}</Text>
+          <View style={[styles.fieldContainer, { borderBottomColor: colors.border }]}>
+            <Text style={[styles.label, { color: colors.label }]}>Idade</Text>
+            <Text style={[styles.value, { color: colors.text }]}>{perfilData.idade || 'Não informado'}</Text>
           </View>
 
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>Instituição</Text>
-            <Text style={styles.value}>{perfilData.instituicao || 'Não informado'}</Text>
+          <View style={[styles.fieldContainer, { borderBottomColor: colors.border }]}>
+            <Text style={[styles.label, { color: colors.label }]}>Instituição</Text>
+            <Text style={[styles.value, { color: colors.text }]}>{perfilData.instituicao || 'Não informado'}</Text>
           </View>
 
-          <View style={styles.fieldContainer}>
-            <Text style={styles.label}>Curso</Text>
-            <Text style={styles.value}>{perfilData.curso || 'Não informado'}</Text>
+          <View style={[styles.fieldContainer, { borderBottomColor: colors.border }]}>
+            <Text style={[styles.label, { color: colors.label }]}>Curso</Text>
+            <Text style={[styles.value, { color: colors.text }]}>{perfilData.curso || 'Não informado'}</Text>
           </View>
         </View>
 
-        <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
+        <TouchableOpacity style={[styles.editButton, { backgroundColor: colors.buttonPrimary }]} onPress={handleEdit}>
           <Text style={styles.editButtonText}>Editar Perfil</Text>
         </TouchableOpacity>
       </View>
@@ -95,7 +99,6 @@ export default function PerfilScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F7FA',
   },
   content: {
     padding: 20,
@@ -104,12 +107,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#2C3E50',
     marginBottom: 30,
     textAlign: 'center',
   },
   card: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     padding: 20,
     marginBottom: 30,
@@ -126,23 +127,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#E8ECEF',
   },
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#7F8C8D',
     marginBottom: 8,
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
   value: {
     fontSize: 18,
-    color: '#2C3E50',
     fontWeight: '500',
   },
   editButton: {
-    backgroundColor: '#3498DB',
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 12,

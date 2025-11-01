@@ -1,23 +1,28 @@
 import React from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { useColorScheme } from '@/components/useColorScheme';
+import Colors from '@/constants/Colors';
 
 export default function HomeScreen() {
+  const colorScheme = useColorScheme() ?? 'dark';
+  const colors = Colors[colorScheme];
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.content}>
-        <Text style={styles.welcomeText}>Bem-vindo!</Text>
-        <Text style={styles.subtitle}>Gerencie seu perfil na aba "Perfil"</Text>
+        <Text style={[styles.welcomeText, { color: colors.text }]}>Bem-vindo!</Text>
+        <Text style={[styles.subtitle, { color: colors.subtitle }]}>Gerencie seu perfil na aba "Perfil"</Text>
         
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📱 App de Perfil</Text>
-          <Text style={styles.cardText}>
+        <View style={[styles.card, { backgroundColor: colors.cardBackground }]}>
+          <Text style={[styles.cardTitle, { color: colors.tint }]}>📱 App de Perfil</Text>
+          <Text style={[styles.cardText, { color: colors.text }]}>
             Navegue até a aba Perfil para visualizar e editar suas informações pessoais.
           </Text>
         </View>
 
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>✨ Funcionalidades</Text>
-          <Text style={styles.cardText}>
+        <View style={[styles.card, { backgroundColor: colors.cardBackground }]}>
+          <Text style={[styles.cardTitle, { color: colors.tint }]}>✨ Funcionalidades</Text>
+          <Text style={[styles.cardText, { color: colors.text }]}>
             • Visualize suas informações{'\n'}
             • Edite seu perfil facilmente{'\n'}
             • Dados salvos localmente
@@ -31,7 +36,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F7FA',
   },
   content: {
     padding: 20,
@@ -40,18 +44,15 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#2C3E50',
     marginBottom: 10,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 18,
-    color: '#7F8C8D',
     marginBottom: 30,
     textAlign: 'center',
   },
   card: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     padding: 20,
     marginBottom: 20,
@@ -67,12 +68,10 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#3498DB',
     marginBottom: 12,
   },
   cardText: {
     fontSize: 16,
-    color: '#555',
     lineHeight: 24,
   },
 });

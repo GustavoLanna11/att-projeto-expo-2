@@ -11,6 +11,8 @@ import {
   Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useColorScheme } from '@/components/useColorScheme';
+import Colors from '@/constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface PerfilData {
@@ -23,6 +25,8 @@ interface PerfilData {
 
 export default function EditarPerfilScreen() {
   const router = useRouter();
+  const colorScheme = useColorScheme() ?? 'dark';
+  const colors = Colors[colorScheme];
   const [formData, setFormData] = useState<PerfilData>({
     nome: '',
     sobrenome: '',
@@ -77,76 +81,117 @@ export default function EditarPerfilScreen() {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { backgroundColor: colors.background }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
         <View style={styles.content}>
-          <Text style={styles.title}>Editar Perfil</Text>
+          <Text style={[styles.title, { color: colors.text }]}>Editar Perfil</Text>
 
-          <View style={styles.form}>
+          <View style={[styles.form, { backgroundColor: colors.cardBackground }]}>
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Nome</Text>
+              <Text style={[styles.label, { color: colors.text }]}>Nome</Text>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor: colors.inputBackground,
+                    borderColor: colors.inputBorder,
+                    color: colors.text,
+                  },
+                ]}
                 value={formData.nome}
                 onChangeText={(text) => setFormData({ ...formData, nome: text })}
                 placeholder="Digite seu nome"
-                placeholderTextColor="#95A5A6"
+                placeholderTextColor={colors.label}
               />
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Sobrenome</Text>
+              <Text style={[styles.label, { color: colors.text }]}>Sobrenome</Text>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor: colors.inputBackground,
+                    borderColor: colors.inputBorder,
+                    color: colors.text,
+                  },
+                ]}
                 value={formData.sobrenome}
                 onChangeText={(text) => setFormData({ ...formData, sobrenome: text })}
                 placeholder="Digite seu sobrenome"
-                placeholderTextColor="#95A5A6"
+                placeholderTextColor={colors.label}
               />
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Idade</Text>
+              <Text style={[styles.label, { color: colors.text }]}>Idade</Text>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor: colors.inputBackground,
+                    borderColor: colors.inputBorder,
+                    color: colors.text,
+                  },
+                ]}
                 value={formData.idade}
                 onChangeText={(text) => setFormData({ ...formData, idade: text })}
                 placeholder="Digite sua idade"
-                placeholderTextColor="#95A5A6"
+                placeholderTextColor={colors.label}
                 keyboardType="numeric"
               />
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Instituição</Text>
+              <Text style={[styles.label, { color: colors.text }]}>Instituição</Text>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor: colors.inputBackground,
+                    borderColor: colors.inputBorder,
+                    color: colors.text,
+                  },
+                ]}
                 value={formData.instituicao}
                 onChangeText={(text) => setFormData({ ...formData, instituicao: text })}
                 placeholder="Digite o nome da instituição"
-                placeholderTextColor="#95A5A6"
+                placeholderTextColor={colors.label}
               />
             </View>
 
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Curso</Text>
+              <Text style={[styles.label, { color: colors.text }]}>Curso</Text>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  {
+                    backgroundColor: colors.inputBackground,
+                    borderColor: colors.inputBorder,
+                    color: colors.text,
+                  },
+                ]}
                 value={formData.curso}
                 onChangeText={(text) => setFormData({ ...formData, curso: text })}
                 placeholder="Digite o nome do curso"
-                placeholderTextColor="#95A5A6"
+                placeholderTextColor={colors.label}
               />
             </View>
           </View>
 
-          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+          <TouchableOpacity
+            style={[styles.saveButton, { backgroundColor: colors.buttonSuccess }]}
+            onPress={handleSave}
+          >
             <Text style={styles.saveButtonText}>Salvar</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.cancelButton} onPress={() => router.back()}>
+          <TouchableOpacity
+            style={[styles.cancelButton, { backgroundColor: colors.buttonDanger }]}
+            onPress={() => router.back()}
+          >
             <Text style={styles.cancelButtonText}>Cancelar</Text>
           </TouchableOpacity>
         </View>
@@ -158,7 +203,6 @@ export default function EditarPerfilScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F7FA',
   },
   scrollView: {
     flex: 1,
@@ -173,12 +217,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#2C3E50',
     marginBottom: 30,
     textAlign: 'center',
   },
   form: {
-    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     padding: 20,
     marginBottom: 20,
@@ -197,20 +239,15 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#2C3E50',
     marginBottom: 8,
   },
   input: {
-    backgroundColor: '#F8F9FA',
     borderWidth: 1,
-    borderColor: '#E8ECEF',
     borderRadius: 10,
     padding: 14,
     fontSize: 16,
-    color: '#2C3E50',
   },
   saveButton: {
-    backgroundColor: '#27AE60',
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 12,
@@ -231,7 +268,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   cancelButton: {
-    backgroundColor: '#E74C3C',
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderRadius: 12,
